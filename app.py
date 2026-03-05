@@ -86,5 +86,63 @@ ax.set_ylabel("Presión (psi)")
 ax.set_title("Ventana Operativa de Perforación")
 
 ax.legend()
-
+avance = st.sidebar.slider("Avance de perforación (ft)", 0, profundidad, int(profundidad*0.6))
 st.pyplot(fig)
+st.header("Visualización del Pozo")
+
+fig2, ax2 = plt.subplots()
+
+# Dibujar pozo
+ax2.plot([0,0],[0,profundidad], linewidth=6)
+
+# Posición del trépano
+ax2.scatter(0, avance, s=200)
+
+ax2.set_ylim(profundidad,0)
+ax2.set_xlim(-1,1)
+
+ax2.set_title("Posición del Trépano")
+ax2.set_ylabel("Profundidad (ft)")
+
+st.pyplot(fig2)
+st.header("Columna de Lodo")
+
+fig3, ax3 = plt.subplots()
+
+ax3.fill_between([0,1],0,avance)
+
+ax3.set_ylim(profundidad,0)
+
+ax3.set_title("Columna Hidrostática")
+
+st.pyplot(fig3)
+kick_altura = st.sidebar.slider("Altura del Gas Kick (ft)",0,profundidad,0)
+
+if kick_altura > 0:
+
+    st.header("Migración de Gas")
+
+    fig4, ax4 = plt.subplots()
+
+    ax4.plot([0,0],[0,profundidad],linewidth=5)
+
+    ax4.scatter(0,kick_altura,s=200)
+
+    ax4.set_ylim(profundidad,0)
+
+    ax4.set_title("Burbuja de Gas Migrando")
+
+    st.pyplot(fig4)
+    st.header("Modo Entrenamiento")
+
+st.write("Escenario de entrenamiento:")
+
+if presion_hidrostatica < presion_formacion:
+    st.write("El alumno debe detectar un Kick")
+
+elif presion_hidrostatica > presion_fractura:
+    st.write("El alumno debe reducir peso de lodo")
+
+else:
+    st.write("Condición de perforación normal")
+    
