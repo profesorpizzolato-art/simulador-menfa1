@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Simulador MENFA - Perforación", layout="wide")
 
 st.title("Simulador Profesional de Perforación - MENFA")
-
+st.markdown("### Centro de entrenamiento de perforación y control de pozos")
+st.markdown("Simulador educativo desarrollado para **MENFA IPCL**")
 st.sidebar.header("Parámetros del Pozo")
 
 profundidad = st.sidebar.slider("Profundidad (ft)", 1000, 15000, 8000)
@@ -40,4 +41,32 @@ ax.axhline(presion_formacion)
 ax.set_xlabel("Profundidad (ft)")
 ax.set_ylabel("Presión (psi)")
 ax.set_title("Perfil de Presión")
+st.pyplot(fig)
+gradiente_formacion = st.sidebar.slider("Gradiente de Formación (psi/ft)", 0.3, 1.0, 0.6)
+gradiente_fractura = st.sidebar.slider("Gradiente de Fractura (psi/ft)", 0.7, 1.5, 1.0)
+presion_formacion_real = gradiente_formacion * profundidad
+presion_fractura = gradiente_fractura * profundidad
+st.subheader("Ventana Operativa de Perforación")
+
+col1, col2 = st.columns(2)
+
+col1.metric("Presión Formación (psi)", f"{presion_formacion_real:,.0f}")
+col2.metric("Presión Fractura (psi)", f"{presion_fractura:,.0f}")
+if presion_hidrostatica < presion_formacion_real:
+    st.error("ALERTA: POSIBLE KICK")
+elif presion_hidrostatica > presion_fractura:
+    st.warning("RIESGO DE FRACTURA DE FORMACIÓN")
+else:
+    st.success("CONDICIÓN DE PERFORACIÓN SEGURA")
+    fig, ax = plt.subplots()
+
+ax.plot(prof_range, presion_curve, label="Presión Hidrostática")
+ax.plot(prof_range, gradiente_formacion * prof_range, label="Presión Formación")
+ax.plot(prof_range, gradiente_fractura * prof_range, label="Presión Fractura")
+
+ax.set_xlabel("Profundidad (ft)")
+ax.set_ylabel("Presión (psi)")
+ax.legend()
+ax.set_title("Ventana de Perforación")
+
 st.pyplot(fig)
