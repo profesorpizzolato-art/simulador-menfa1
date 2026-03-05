@@ -1,251 +1,202 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
+import time
 
-st.set_page_config(page_title="Simulador MENFA", layout="wide")
+st.set_page_config(page_title="MENFA DRILLING SIMULATOR", layout="wide")
 
-st.title("SIMULADOR DE PERFORACIÓN Y CONTROL DE POZOS")
-st.subheader("MENFA - Instituto Privado de Capacitación Laboral")
+st.title("MENFA DRILLING & WELL CONTROL SIMULATOR")
+st.subheader("Centro de Entrenamiento Técnico Petrolero")
 
+# SIDEBAR
 st.sidebar.header("Parámetros del Pozo")
 
-profundidad = st.sidebar.slider("Profundidad del pozo (ft)", 1000, 20000, 8000)
+profundidad = st.sidebar.slider("Profundidad (ft)",1000,20000,8000)
+mud_weight = st.sidebar.slider("Peso de lodo (ppg)",8.0,18.0,10.0)
 
-densidad_lodo = st.sidebar.slider("Peso del lodo (ppg)", 8.0, 18.0, 10.0)
-
-presion_formacion = st.sidebar.slider("Gradiente presión formación (psi/ft)", 0.3, 1.0, 0.6)
-
-gradiente_fractura = st.sidebar.slider("Gradiente fractura (psi/ft)", 0.6, 1.4, 0.9)
-
-st.sidebar.subheader("Escenario")
+grad_form = st.sidebar.slider("Gradiente formación (psi/ft)",0.30,1.0,0.65)
+grad_frac = st.sidebar.slider("Gradiente fractura (psi/ft)",0.8,1.5,1.1)
 
 escenario = st.sidebar.selectbox(
-    "Seleccionar escenario",
-    ["Normal", "Kick (entrada de gas)", "Pérdida de circulación"]
+"Escenario",
+[
+"Perforación normal",
+"Kick de gas",
+"Pérdida de circulación",
+"Pozo bajo balance"
+]
 )
 
-# Cálculos
+# CALCULOS PRINCIPALES
 
-presion_hidrostatica = 0.052 * densidad_lodo * profundidad
-presion_formacion_total = presion_formacion * profundidad
-presion_fractura_total = gradiente_fractura * profundidad
+ph = 0.052*mud_weight*profundidad
+pf = grad_form*profundidad
+pfrac = grad_frac*profundidad
 
-st.subheader("Presiones calculadas")
+# DASHBOARD PRESIONES
 
-col1, col2, col3 = st.columns(3)
+st.header("Panel de Presiones")
 
-col1.metric("Presión Hidrostática", f"{round(presion_hidrostatica,0)} psi")
-col2.metric("Presión Formación", f"{round(presion_formacion_total,0)} psi")
-col3.metric("Presión Fractura", f"{round(presion_fractura_total,0)} psi")
+c1,c2,c3 = st.columns(3)
 
-# Diagnóstico
+c1.metric("Presión Hidrostática",round(ph))
+c2.metric("Presión Formación",round(pf))
+c3.metric("Presión Fractura",round(pfrac))
 
-if presion_hidrostatica < presion_formacion_total:
-    st.error("RIESGO DE KICK — presión insuficiente")
+# DIAGNOSTICO
 
-elif presion_hidrostatica > presion_fractura_total:
-    st.warning("RIESGO DE FRACTURA — presión excesiva")
+st.header("Diagnóstico del Pozo")
 
-else:
-    st.success("Pozo en condición estable")
+if ph < pf:
+    st.error("RIESGO DE KICK")
 
-# Gráfico
-
-prof = np.linspace(0, profundidad, 50)
-
-hidro = 0.052 * densidad_lodo * prof
-form = presion_formacion * prof
-frac = gradiente_fractura * prof
-
-fig, ax = plt.subplots()
-
-ax.plot(hidro, prof, label="Presión Hidrostática")
-ax.plot(form, prof, label="Presión Formación")
-ax.plot(frac, prof, label="Presión Fractura")
-
-ax.invert_yaxis()
-
-ax.set_xlabel("Presión (psi)")
-ax.set_ylabel("Profundidad (ft)")
-ax.legend()
-
-st.pyplot(fig)
-import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
-
-st.set_page_config(page_title="Simulador MENFA", layout="wide")
-
-st.title("SIMULADOR DE PERFORACIÓN Y CONTROL DE POZOS")
-st.subheader("MENFA - Instituto Privado de Capacitación Laboral")
-
-st.sidebar.header("Parámetros del Pozo")
-
-profundidad = st.sidebar.slider("Profundidad del pozo (ft)", 1000, 20000, 8000)
-
-densidad_lodo = st.sidebar.slider("Peso del lodo (ppg)", 8.0, 18.0, 10.0)
-
-presion_formacion = st.sidebar.slider("Gradiente presión formación (psi/ft)", 0.3, 1.0, 0.6)
-
-gradiente_fractura = st.sidebar.slider("Gradiente fractura (psi/ft)", 0.6, 1.4, 0.9)
-
-st.sidebar.subheader("Escenario")
-
-escenario = st.sidebar.selectbox(
-    "Seleccionar escenario",
-    ["Normal", "Kick (entrada de gas)", "Pérdida de circulación"]
-)
-rpm = st.sidebar.slider("RPM", 0, 200, 120)
-wob = st.sidebar.slider("Weight on Bit (klb)", 0, 60, 25)
-flow = st.sidebar.slider("Caudal de bombeo (gpm)", 0, 1000, 500)
-st.subheader("Parámetros de perforación")
-
-c1, c2, c3 = st.columns(3)
-
-c1.metric("RPM", rpm)
-c2.metric("WOB", wob)
-c3.metric("Flow rate", flow)
-# Cálculos
-
-presion_hidrostatica = 0.052 * densidad_lodo * profundidad
-presion_formacion_total = presion_formacion * profundidad
-presion_fractura_total = gradiente_fractura * profundidad
-
-st.subheader("Presiones calculadas")
-
-col1, col2, col3 = st.columns(3)
-
-col1.metric("Presión Hidrostática", f"{round(presion_hidrostatica,0)} psi")
-col2.metric("Presión Formación", f"{round(presion_formacion_total,0)} psi")
-col3.metric("Presión Fractura", f"{round(presion_fractura_total,0)} psi")
-
-# Diagnóstico
-
-if presion_hidrostatica < presion_formacion_total:
-    st.error("RIESGO DE KICK — presión insuficiente")
-
-elif presion_hidrostatica > presion_fractura_total:
-    st.warning("RIESGO DE FRACTURA — presión excesiva")
+elif ph > pfrac:
+    st.warning("RIESGO DE FRACTURA")
 
 else:
-    st.success("Pozo en condición estable")
+    st.success("VENTANA OPERATIVA SEGURA")
 
-# Gráfico
+# CONTROL DE POZOS
 
-prof = np.linspace(0, profundidad, 50)
-
-hidro = 0.052 * densidad_lodo * prof
-form = presion_formacion * prof
-frac = gradiente_fractura * prof
-
-fig, ax = plt.subplots()
-
-ax.plot(hidro, prof, label="Presión Hidrostática")
-ax.plot(form, prof, label="Presión Formación")
-ax.plot(frac, prof, label="Presión Fractura")
-
-ax.invert_yaxis()
-
-ax.set_xlabel("Presión (psi)")
-ax.set_ylabel("Profundidad (ft)")
-ax.legend()
-
-st.pyplot(fig)
-
-st.subheader("Interpretación")
-
-if escenario == "Kick (entrada de gas)":
-    st.write("El gas reduce la presión hidrostática y provoca una entrada de formación.")
-
-elif escenario == "Pérdida de circulación":
-    st.write("La presión supera el gradiente de fractura y el lodo se pierde hacia la formación.")
-
-else:
-    st.write("La perforación se mantiene dentro de la ventana operativa.")
-st.subheader("Interpretación")
-
-if escenario == "Kick (entrada de gas)":
-    st.write("El gas reduce la presión hidrostática y provoca una entrada de formación.")
-
-elif escenario == "Pérdida de circulación":
-    st.write("La presión supera el gradiente de fractura y el lodo se pierde hacia la formación.")
-
-else:
-    st.write("La perforación se mantiene dentro de la ventana operativa.")
-    if escenario == "Kick (entrada de gas)":
-
-    st.subheader("Simulación de migración de gas")
-
-    tiempo = st.slider("Tiempo de migración (min)",0,60,10)
-
-    posicion_gas = profundidad - (tiempo * 50)
-
-    fig3, ax3 = plt.subplots()
-
-    ax3.plot([0,0],[0,profundidad], linewidth=10)
-    ax3.scatter(0,posicion_gas,s=400)
-
-    ax3.set_ylim(profundidad,0)
-    ax3.set_xlim(-1,1)
-    ax3.set_title("Migración del gas")
-
-    ax3.set_xticks([])
-
-    st.pyplot(fig3)
-    st.subheader("Control de Pozos")
+st.header("Control de Pozos")
 
 sidpp = st.slider("SIDPP (psi)",0,1500,300)
-
-kmw = densidad_lodo + sidpp/(0.052*profundidad)
-
-st.metric("Kill Mud Weight requerido", round(kmw,2))
 sicp = st.slider("SICP (psi)",0,2000,500)
 
-st.metric("Presión casing (SICP)", sicp)
-st.subheader("Monitoreo de Volumen")
+kmw = mud_weight + sidpp/(0.052*profundidad)
 
-pit_gain = st.slider("Pit Gain (bbl)",0,50,0)
+st.metric("Kill Mud Weight requerido",round(kmw,2))
 
-if pit_gain > 5:
-    st.error("Posible Kick detectado")
-elif pit_gain > 0:
-    st.warning("Ganancia de volumen detectada")
+# PIT GAIN
+
+st.header("Monitoreo de Volumen")
+
+pit = st.slider("Pit Gain (bbl)",0,50,0)
+
+if pit > 5:
+    st.error("KICK DETECTADO")
+
+elif pit > 0:
+    st.warning("GANANCIA DE VOLUMEN")
+
 else:
     st.success("Volumen estable")
-    st.subheader("Panel del Perforador")
+
+# PARAMETROS DE PERFORACION
+
+st.header("Panel del Perforador")
+
+rpm = st.slider("RPM",0,200,120)
+wob = st.slider("WOB (klb)",0,60,25)
+flow = st.slider("Flow rate (gpm)",0,1000,500)
+
+rop = (rpm*0.12)+(wob*0.35)
 
 col1,col2,col3,col4 = st.columns(4)
 
-col1.metric("RPM", rpm)
-col2.metric("WOB", wob)
-col3.metric("Flow rate", flow)
-col4.metric("Pit Gain", pit_gain)
-rop = (rpm*0.1)+(wob*0.3)
+col1.metric("RPM",rpm)
+col2.metric("WOB",wob)
+col3.metric("Flow",flow)
+col4.metric("ROP (ft/hr)",round(rop,1))
 
-st.metric("ROP estimado (ft/hr)", round(rop,1))
-avance = st.slider("Avance de perforación",0,profundidad,int(profundidad*0.5))
+# PERFIL DE PRESIONES
 
-fig4, ax4 = plt.subplots()
+st.header("Perfil de Presiones")
 
-ax4.plot([0,0],[0,profundidad],linewidth=10)
-ax4.scatter(0,avance,s=300)
+prof = np.linspace(0,profundidad,100)
 
-ax4.set_ylim(profundidad,0)
-ax4.set_xlim(-1,1)
+hidro = 0.052*mud_weight*prof
+form = grad_form*prof
+frac = grad_frac*prof
 
-ax4.set_title("Posición del trépano")
+fig,ax = plt.subplots()
 
-ax4.set_xticks([])
+ax.plot(hidro,prof,label="Hidrostática")
+ax.plot(form,prof,label="Formación")
+ax.plot(frac,prof,label="Fractura")
 
-st.pyplot(fig4)
-st.subheader("Escenario de entrenamiento")
+ax.invert_yaxis()
 
-if escenario == "Kick (entrada de gas)":
-    st.write("Objetivo del alumno: detectar el kick y cerrar el pozo.")
+ax.set_xlabel("Presión (psi)")
+ax.set_ylabel("Profundidad (ft)")
+
+ax.legend()
+
+st.pyplot(fig)
+
+# VISUALIZACION DEL POZO
+
+st.header("Visualización del Pozo")
+
+avance = st.slider("Posición del trépano",0,profundidad,int(profundidad*0.5))
+
+fig2,ax2 = plt.subplots()
+
+ax2.plot([0,0],[0,profundidad],linewidth=10)
+
+ax2.scatter(0,avance,s=300)
+
+if escenario == "Kick de gas":
+    gas = profundidad*0.75
+    ax2.scatter(0,gas,s=400)
+
+ax2.set_ylim(profundidad,0)
+
+ax2.set_xlim(-1,1)
+
+ax2.set_xticks([])
+
+ax2.set_title("Estado del Pozo")
+
+st.pyplot(fig2)
+
+# MIGRACION DE GAS
+
+if escenario == "Kick de gas":
+
+    st.header("Migración de Gas")
+
+    tiempo = st.slider("Tiempo de migración (min)",0,60,10)
+
+    posicion = profundidad - (tiempo*40)
+
+    fig3,ax3 = plt.subplots()
+
+    ax3.plot([0,0],[0,profundidad],linewidth=10)
+
+    ax3.scatter(0,posicion,s=500)
+
+    ax3.set_ylim(profundidad,0)
+    ax3.set_xlim(-1,1)
+    ax3.set_xticks([])
+
+    ax3.set_title("Gas Migrando")
+
+    st.pyplot(fig3)
+
+# MODO ENTRENAMIENTO
+
+st.header("Modo Entrenamiento MENFA")
+
+if escenario == "Kick de gas":
+
+    st.write("Objetivo del alumno:")
+    st.write("1 Detectar el kick")
+    st.write("2 Cerrar el pozo")
+    st.write("3 Calcular Kill Mud Weight")
 
 elif escenario == "Pérdida de circulación":
-    st.write("Objetivo del alumno: reducir presión de lodo.")
+
+    st.write("Objetivo del alumno:")
+    st.write("Reducir presión hidrostática")
+
+elif escenario == "Pozo bajo balance":
+
+    st.write("Objetivo del alumno:")
+    st.write("Controlar entrada de formación")
 
 else:
-    st.write("Operación de perforación normal.")
-    
+
+    st.write("Operación normal de perforación")
+
+st.write("Simulador desarrollado para entrenamiento técnico en perforación.")
