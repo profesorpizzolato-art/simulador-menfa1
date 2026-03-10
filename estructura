@@ -19,3 +19,26 @@ assets/
     bomba_lodo.png
     geologia.png
     logo_menfa.png
+simulador_menfa/
+
+app.py
+
+modulos/
+    panel_cabina.py
+    torque_drag_avanzado.py
+    sistema_circulacion.py
+    geonavegacion.py
+    control_pozos.py
+    deteccion_kick.py
+    graficas_tiempo_real.py
+
+evaluacion/
+    preguntas.py
+    examen.py
+    certificado.py
+
+assets/
+    logo_menfa.png
+    rig_panel.png
+    bombas.png
+    geologia.png
