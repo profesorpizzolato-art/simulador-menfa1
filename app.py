@@ -84,3 +84,18 @@ elif menu == "Control de Pozos":
 else:
     st.write("Módulo de evaluación en desarrollo.")
     assets/logo_menfa.png
+import streamlit as st
+
+from modulos.estilo_scada import estilo_scada
+from modulos.panel_scada import panel_scada
+from modulos.centro_control import centro_control
+
+st.set_page_config(layout="wide")
+
+estilo_scada()
+
+st.title("SIMULADOR MENFA")
+
+centro_control()
+
+panel_scada()
