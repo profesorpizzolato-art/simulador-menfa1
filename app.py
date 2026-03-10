@@ -242,7 +242,7 @@ if menu == "Gráficas Operativas":
 
 if menu == "Evaluación y Certificación":
     modulo_examen()
-    simulador_menfa/
+    "simulador_menfa/"
 
 import streamlit as st
 
