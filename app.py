@@ -83,3 +83,4 @@ elif menu == "Control de Pozos":
 
 else:
     st.write("Módulo de evaluación en desarrollo.")
+    assets/logo_menfa.png
