@@ -199,25 +199,47 @@ else:
 
     st.write("Operación normal de perforación")
 
-st.write("Simulador desarrollado para entrenamiento técnico en perforación.")
-simulador_menfa/
+import streamlit as st
 
-app.py
+from modulos.panel_perforador import panel_perforador
+from modulos.torque_drag import panel_torque
+from modulos.bombas_lodo import panel_bombas
+from modulos.geonavegacion import geonavegacion
+from modulos.graficas_operativas import graficas_operativas
 
-modulos/
-    panel_perforador.py
-    torque_drag.py
-    bombas_lodo.py
-    geonavegacion.py
-    graficas_operativas.py
+from evaluacion.examen import modulo_examen
 
-evaluacion/
-    preguntas.py
-    examen.py
-    certificado.py
+st.set_page_config(page_title="Simulador MENFA", layout="wide")
 
-assets/
-    rig_floor.png
-    bomba_lodo.png
-    geologia.png
-    logo_menfa.png
+st.title("Simulador Operativo de Perforación - MENFA")
+
+menu = st.sidebar.selectbox(
+"Menú",
+[
+"Panel del Perforador",
+"Torque y Drag",
+"Bombas de Lodo",
+"Geonavegación",
+"Gráficas Operativas",
+"Evaluación y Certificación"
+]
+)
+
+if menu == "Panel del Perforador":
+    panel_perforador()
+
+if menu == "Torque y Drag":
+    panel_torque()
+
+if menu == "Bombas de Lodo":
+    panel_bombas()
+
+if menu == "Geonavegación":
+    geonavegacion()
+
+if menu == "Gráficas Operativas":
+    graficas_operativas()
+
+if menu == "Evaluación y Certificación":
+    modulo_examen()
+    
