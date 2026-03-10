@@ -1,0 +1,21 @@
+simulador_menfa/
+
+app.py
+
+modulos/
+    panel_perforador.py
+    torque_drag.py
+    bombas_lodo.py
+    geonavegacion.py
+    graficas_operativas.py
+
+evaluacion/
+    preguntas.py
+    examen.py
+    certificado.py
+
+assets/
+    rig_floor.png
+    bomba_lodo.png
+    geologia.png
+    logo_menfa.png
