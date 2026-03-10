@@ -297,4 +297,59 @@ if menu == "Gráficas en Tiempo Real":
 
 if menu == "Evaluación MENFA":
     modulo_examen()
+import streamlit as st
 
+from modulos.panel_cabina import panel_cabina
+from modulos.torque_drag import torque_drag
+from modulos.bombas import bombas
+from modulos.geonavegacion import geonavegacion
+from modulos.control_pozos import control_pozos
+from modulos.deteccion_kick import deteccion_kick
+from modulos.graficas_rt import graficas_rt
+
+from evaluacion.examen import examen
+
+st.set_page_config(page_title="Simulador MENFA",layout="wide")
+
+st.title("SIMULADOR DE PERFORACIÓN MENFA")
+
+menu = st.sidebar.selectbox(
+
+"Menú del simulador",
+
+[
+"Cabina del perforador",
+"Torque y Drag",
+"Bombas",
+"Geonavegación",
+"Control de pozos",
+"Detección de Kick",
+"Gráficas",
+"Evaluación"
+]
+
+)
+
+if menu == "Cabina del perforador":
+    panel_cabina()
+
+if menu == "Torque y Drag":
+    torque_drag()
+
+if menu == "Bombas":
+    bombas()
+
+if menu == "Geonavegación":
+    geonavegacion()
+
+if menu == "Control de pozos":
+    control_pozos()
+
+if menu == "Detección de Kick":
+    deteccion_kick()
+
+if menu == "Gráficas":
+    graficas_rt()
+
+if menu == "Evaluación":
+    examen()
