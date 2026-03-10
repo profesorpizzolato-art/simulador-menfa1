@@ -353,3 +353,10 @@ if menu == "Gráficas":
 
 if menu == "Evaluación":
     examen()
+import sys
+import os
+
+# Añade el directorio actual al path para que encuentre la carpeta 'modulos'
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from modulos.panel_perforador import panel_perforador
