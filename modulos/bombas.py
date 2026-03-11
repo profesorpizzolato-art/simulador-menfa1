@@ -1,5 +1,5 @@
 import streamlit as st
-
+__init__.py
 def bombas():
 
     st.subheader("Sistema de bombas")
