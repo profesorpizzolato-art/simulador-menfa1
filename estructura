@@ -36,6 +36,13 @@ evaluacion/
     preguntas.py
     examen.py
     certificado.py
+/ (Raíz del repositorio)
+├── app.py                <-- Pega aquí el código de abajo
+└── modulos/              <-- Carpeta
+    ├── __init__.py       <-- ARCHIVO VACÍO (Obligatorio)
+    ├── panel_perforador.py
+    ├── torque_drag.py
+    └── ... (otros módulos)
 
 assets/
     logo_menfa.png
