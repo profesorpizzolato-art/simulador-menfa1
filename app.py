@@ -12,7 +12,7 @@ st.set_page_config(page_title="Simulador MENFA", layout="wide")
 
 # 3. Intentar importar módulos (con manejo de errores para diagnóstico)
 try:
-   from modulos.panel_perforador 
+ 
    from panel_perforador.py# Agrega aquí otros módulos si ya existen los archivos .py en la carpeta modulos
     # from modulos.torque_drag import torque_drag
 except ImportError as e:
