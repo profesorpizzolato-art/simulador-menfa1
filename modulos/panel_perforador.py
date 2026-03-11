@@ -1,5 +1,5 @@
 import streamlit as st
-
+__init__.py
 def panel_perforador():
 
     st.header("Panel del Perforador")
