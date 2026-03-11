@@ -1,6 +1,6 @@
 from PIL import Image,ImageDraw
 import streamlit as st
-
+__init__.py
 def certificado(nombre,puntaje):
 
     img = Image.new("RGB",(1200,800),"white")
