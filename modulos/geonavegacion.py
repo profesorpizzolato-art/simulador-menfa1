@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-
+__init__.py
 def geonavegacion():
 
     st.subheader("Geonavegación")
