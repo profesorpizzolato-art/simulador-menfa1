@@ -18,10 +18,9 @@ st.set_page_config(
 
 st.title("SIMULADOR OPERATIVO DE PERFORACIÓN MENFA")
 
+
 menu = st.sidebar.selectbox(
-
     "Seleccionar módulo",
-
     [
         "Panel del Perforador",
         "Cabina de perforación",
@@ -30,7 +29,6 @@ menu = st.sidebar.selectbox(
         "Geonavegación",
         "Evaluación"
     ]
-
 )
 
 
