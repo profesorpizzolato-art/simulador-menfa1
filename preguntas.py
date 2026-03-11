@@ -1,26 +1,17 @@
-preguntas = [
+preguntas = []
 
-{
-"pregunta":"¿Que variable indica la velocidad de penetración?",
-"opciones":["ROP","RPM","Torque","SPP"],
-"correcta":"ROP"
-},
+for i in range(60):
 
-{
-"pregunta":"¿Qué parámetro controla el peso sobre la barrena?",
-"opciones":["WOB","SPM","Flow","Torque"],
-"correcta":"WOB"
-},
+    preguntas.append({
 
-{
-"pregunta":"¿Qué indica aumento de torque?",
-"opciones":[
-"Fricción en el pozo",
-"Mayor presión",
-"Menor ROP",
-"Ninguna"
-],
-"correcta":"Fricción en el pozo"
-}
+        "pregunta": f"Pregunta técnica de perforación {i+1}",
 
-]
+        "opciones":[
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+
+        "correcta":"A"
+    })
