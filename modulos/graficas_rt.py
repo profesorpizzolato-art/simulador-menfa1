@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-
+__init__.py
 def graficas_rt():
 
     st.subheader("Parámetros en tiempo real")
