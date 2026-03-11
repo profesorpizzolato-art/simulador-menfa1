@@ -2,37 +2,41 @@ import streamlit as st
 from evaluacion.preguntas import preguntas
 from evaluacion.certificado import generar_certificado
 
-def modulo_examen():
 
-    st.title("Evaluación Técnica MENFA")
+def examen():
 
-    nombre = st.text_input("Nombre del participante")
+    st.title("Evaluación MENFA")
 
-    puntaje = 0
+    nombre = st.text_input("Nombre del alumno")
 
     respuestas = []
 
     for i,p in enumerate(preguntas):
 
         r = st.radio(
-        p["pregunta"],
-        p["opciones"],
-        key=i
+            p["pregunta"],
+            p["opciones"],
+            key=i
         )
 
         respuestas.append(r)
 
-    if st.button("Finalizar evaluación"):
+    if st.button("Finalizar examen"):
+
+        puntaje = 0
 
         for i,p in enumerate(preguntas):
 
             if respuestas[i] == p["correcta"]:
-                puntaje +=1
+                puntaje += 1
 
-        st.write("Resultado:",puntaje,"/",len(preguntas))
+        st.write("Resultado:",puntaje,"/60")
 
         if puntaje >= 42:
-            st.success("Aprobado")
+
+            st.success("APROBADO")
+
             generar_certificado(nombre,puntaje)
+
         else:
-            st.error("No aprobado")
+            st.error("NO APROBADO")
