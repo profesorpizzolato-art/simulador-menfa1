@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-
+__init__.py
 def panel_cabina():
 
     st.subheader("Panel del perforador")
