@@ -5,8 +5,6 @@ requirements.txt
 
 assets/
 logo_menfa.png
-rig_panel.png
-geologia.png
 
 modulos/
 __init__.py
