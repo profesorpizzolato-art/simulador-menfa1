@@ -1,5 +1,5 @@
 import streamlit as st
-__init__.py
+
 from modulos.panel_perforador import panel_perforador
 from modulos.panel_cabina import panel_cabina
 from modulos.torque_drag import torque_drag
