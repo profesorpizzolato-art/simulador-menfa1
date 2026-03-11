@@ -1,0 +1,2 @@
+export PYTHONPATH="${PYTHONPATH}:/mount/src/simulador-menfa1/"
+streamlit run app.py
