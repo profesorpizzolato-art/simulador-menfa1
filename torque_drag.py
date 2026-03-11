@@ -2,16 +2,15 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-def panel_torque():
+def torque_drag():
 
-    st.subheader("Modelo Torque y Drag")
+    st.header("Modelo Torque y Drag")
 
     profundidad = st.slider("Profundidad ft",1000,20000,8000)
-    friccion = st.slider("Coeficiente fricción",0.1,0.5,0.25)
+    friccion = st.slider("Coeficiente de fricción",0.1,0.5,0.25)
+    peso = st.slider("Peso de sarta klb",20,200,100)
 
-    peso_sarta = st.slider("Peso sarta klb",10,200,80)
-
-    torque = peso_sarta * friccion * profundidad/100
+    torque = peso * friccion * profundidad / 120
 
     st.metric("Torque estimado", int(torque))
 
@@ -19,6 +18,7 @@ def panel_torque():
     y = x * friccion
 
     fig, ax = plt.subplots()
+
     ax.plot(x,y)
 
     ax.set_xlabel("Profundidad")
@@ -26,5 +26,5 @@ def panel_torque():
 
     st.pyplot(fig)
 
-    if torque > 20000:
-        st.error("Riesgo de pega diferencial")
+    if torque > 25000:
+        st.error("⚠ Posible pega diferencial")
