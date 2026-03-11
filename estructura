@@ -1,5 +1,8 @@
-simulador-menfa/
-
+simulador-menfa1/
+├── app.py
+├── modulos/
+│   ├── __init__.py        ← this file must exist
+│   └── panel_perforador.py
 app.py
 requirements.txt
 
