@@ -1,7 +1,7 @@
 import streamlit as st
 from evaluacion.preguntas import preguntas
 from evaluacion.certificado import certificado
-
+__init__.py
 def examen():
 
     st.title("Evaluación técnica MENFA")
