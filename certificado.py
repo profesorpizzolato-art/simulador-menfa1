@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image,ImageDraw
 import streamlit as st
 
 def generar_certificado(nombre,puntaje):
@@ -8,6 +8,7 @@ def generar_certificado(nombre,puntaje):
     draw = ImageDraw.Draw(img)
 
     texto = f"""
+
 CERTIFICADO MENFA
 
 Se certifica que
@@ -17,7 +18,8 @@ Se certifica que
 Aprobó el simulador operativo
 de perforación petrolera
 
-Puntaje: {puntaje}/60
+Resultado: {puntaje}/60
+
 """
 
     draw.text((200,300),texto,fill="black")
