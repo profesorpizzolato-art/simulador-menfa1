@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-
+__init__.py
 def centro_control():
 
     col1,col2,col3 = st.columns([1,2,1])
