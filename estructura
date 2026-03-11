@@ -1,51 +1,23 @@
-simulador_menfa/
+simulador-menfa/
 
 app.py
-
-modulos/
-    panel_perforador.py
-    torque_drag.py
-    bombas_lodo.py
-    geonavegacion.py
-    graficas_operativas.py
-
-evaluacion/
-    preguntas.py
-    examen.py
-    certificado.py
+requirements.txt
 
 assets/
-    rig_floor.png
-    bomba_lodo.png
-    geologia.png
-    logo_menfa.png
-simulador_menfa/
-
-app.py
+logo_menfa.png
+rig_panel.png
+geologia.png
 
 modulos/
-    panel_cabina.py
-    torque_drag_avanzado.py
-    sistema_circulacion.py
-    geonavegacion.py
-    control_pozos.py
-    deteccion_kick.py
-    graficas_tiempo_real.py
+__init__.py
+panel_perforador.py
+panel_cabina.py
+torque_drag.py
+bombas_lodo.py
+geonavegacion.py
 
 evaluacion/
-    preguntas.py
-    examen.py
-    certificado.py
-/ (Raíz del repositorio)
-├── app.py                <-- Pega aquí el código de abajo
-└── modulos/              <-- Carpeta
-    ├── __init__.py       <-- ARCHIVO VACÍO (Obligatorio)
-    ├── panel_perforador.py
-    ├── torque_drag.py
-    └── ... (otros módulos)
-
-assets/
-    logo_menfa.png
-    rig_panel.png
-    bombas.png
-    geologia.png
+__init__.py
+preguntas.py
+examen.py
+certificado.py
