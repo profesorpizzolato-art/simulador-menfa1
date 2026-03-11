@@ -1,5 +1,5 @@
 preguntas = []
-
+__init__.py
 for i in range(60):
 
     preguntas.append({
