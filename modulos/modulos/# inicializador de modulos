@@ -1,2 +1,2 @@
-# inicializador de modulos
-# inicializador evaluacion
+modulos/__init__.py
+evaluacion/__init__.py
